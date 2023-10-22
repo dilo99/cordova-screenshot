@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Build;
 import android.util.Base64;
 import android.view.TextureView;
 import android.view.View;
@@ -43,7 +44,7 @@ public class Screenshot extends CordovaPlugin {
     private String mFileName;
     private Integer mQuality;
 
-    protected final static String[] PERMISSIONS = {Manifest.permission.READ_MEDIA_IMAGES};
+    protected final static String[] PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_MEDIA_IMAGES};
     public static final int PERMISSION_DENIED_ERROR = 20;
     public static final int SAVE_SCREENSHOT_SEC = 0;
 
@@ -221,10 +222,18 @@ public class Screenshot extends CordovaPlugin {
         mArgs = args;
 
         if (action.equals("saveScreenshot")) {
-            if(PermissionHelper.hasPermission(this, PERMISSIONS[0])) {
-                saveScreenshot();
-            } else {
-                PermissionHelper.requestPermissions(this, SAVE_SCREENSHOT_SEC, PERMISSIONS);
+            if (android.os.Build.VERSION.SDK_INT > 32){
+                if(PermissionHelper.hasPermission(this, PERMISSIONS[1])) {
+                    saveScreenshot();
+                } else {
+                    PermissionHelper.requestPermission(this, SAVE_SCREENSHOT_SEC, PERMISSIONS[1]);
+                }
+            }else{
+                if(PermissionHelper.hasPermission(this, PERMISSIONS[0])) {
+                    saveScreenshot();
+                } else {
+                    PermissionHelper.requestPermission(this, SAVE_SCREENSHOT_SEC, PERMISSIONS[0]);
+                }
             }
             return true;
         } else if (action.equals("getScreenshotAsURI")) {

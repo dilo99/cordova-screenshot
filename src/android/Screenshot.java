@@ -43,7 +43,7 @@ public class Screenshot extends CordovaPlugin {
     private String mFileName;
     private Integer mQuality;
 
-    protected final static String[] PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    protected final static String[] PERMISSIONS = {Manifest.permission.READ_MEDIA_IMAGES};
     public static final int PERMISSION_DENIED_ERROR = 20;
     public static final int SAVE_SCREENSHOT_SEC = 0;
 

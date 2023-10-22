@@ -21,8 +21,6 @@
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="32"/>
             <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-            <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
-            <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
         </config-file>
         <source-file src="src/android/Screenshot.java" target-dir="src/com/darktalker/cordova/screenshot"/>
         <source-file src="src/android/PermissionHelper.java" target-dir="src/com/darktalker/cordova/screenshot"/>
